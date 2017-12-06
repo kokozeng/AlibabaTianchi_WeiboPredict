@@ -2,7 +2,7 @@
 """
 Created on Fri Dec  1 19:23:37 2017
 Weibo Data Processing
-@author: elain
+@author: elaine
 """
 
 import numpy as np
@@ -84,14 +84,7 @@ def load_raw_data_train():
             useless.append(row)
         else:
             useful.append(row)
-    useless_data_train = np.array(useless)
-    # file_useful = open("useful_data_train.txt", 'w')
-    # file_useful.write(str(useful))
-    # file_useful.close()
-    #
-    # file_useless = open("useless_data_train.txt", 'w')
-    # file_useless.write(str(useless))
-    # file_useless.close()
+
 
     print("Finish")
     return useless, useful
@@ -115,6 +108,15 @@ useless_data_train = []
 useful_data_train = []
 
 useless_data_train,useful_data_train = load_raw_data_train()
+file_useless = codecs.open('useless_data_train.txt', 'w', encoding='utf-8')
+file_useless.write(str(useless_data_train))
+file_useless.close()
+print("Useless training data saved successfully!")
+file_useful = codecs.open('useful_data_train.txt', 'w', encoding='utf-8')
+file_useful.write(str(useful_data_train))
+file_useful.close()
+print("Useful training data saved successfully!")
+
 data_predict = load_raw_data_predict()
 print("There is " + str(len(useless_data_train)) + " useless data and " + str(len(useful_data_train)) + " useful data")
 print("There is " + str(len(data_predict)) + " data to be predicted")
@@ -133,11 +135,15 @@ df['f_count'] = df['f_count'].astype(np.int32)
 df['c_count'] = df['c_count'].astype(np.int32)
 df['l_count'] = df['l_count'].astype(np.int32)
 mean_group_df = df.groupby(df['uid']).mean()
-mean_group_df = mean_group_df.round(decimal)
-data_mean = np.array(mean_group_df.reset_index())
-np.savetxt("train_data_mean.txt", data_mean)
+mean_group_df = mean_group_df.round(2).reset_index()
+mean_group_df.to_excel("train_data_mean.xlsx", sheet_name='Sheet1', index=False)
+#data_mean = np.array(mean_group_df.reset_index())
+#np.savetxt("train_data_mean.txt", data_mean)
+print("Useful data mean value computed and saved")
 
 median_group_df = df.groupby(df['uid']).median()
-median_group_df = median_group_df.round(decimal)
-data_median = np.array(median_group_df.reset_index())
-np.savetxt("train_data_median.txt", data_median)
+median_group_df = median_group_df.round(2).reset_index()
+median_group_df.to_excel("train_data_median.xlsx", sheet_name='Sheet1', index=False)
+#data_median = np.array(median_group_df.reset_index())
+#np.savetxt("train_data_median.txt", data_median)
+print("Useful data median value computed and saved")
