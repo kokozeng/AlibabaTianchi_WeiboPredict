@@ -24,6 +24,8 @@ def find_useless_user():
  file.close()
 
 #find only useless user
+#the first method
+#but it running too slow
 def find_only_useless_user():
     useless_user_uid_all = []
     useless_user_uid_once = []
@@ -40,5 +42,20 @@ def find_only_useless_user():
     #useless_user_uid_once = {}.fromkeys(useless_user_uid_all).keys()
     print(len(useless_user_uid_once))
 
+#find only useless user
+#the second method
 
-find_only_useless_user()
+def fine_once_useless_user():
+    u = codecs.open('useless_predict_once.txt', 'a', 'utf8');
+    i = 1
+    useless_user = [];
+    useless_user_line = []
+    with open('/home/koko/Documents/MLcourse/WeiboData/useless_user.txt') as f:
+        for line in f:
+            split = line.split(' ');
+            if split[0] not in useless_user:
+                useless_user.append(split[0]);
+                u.write(split[0] + '\n');
+    print len(useless_user)
+
+fine_once_useless_user()
