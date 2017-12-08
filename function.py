@@ -7,21 +7,21 @@
 @author: koko
 """
 
-def find_zero_user(filea,fileb):
-    file = open(fileb,"w")
-    with open(filea) as f:
+def find_zero_user(file,save):
+    u = open(save,"w")
+    with open(file) as f:
        for line in f:
           row = line.split("\t")
           if int(row[3]) == 0 and int(row[4]) == 0 and int(row[5]) == 0:
              useless_user_line = '{0} {1}'.format(row[0],row[1])+'\n'
-             file.writelines(useless_user_line)
- file.close()
+             u.writelines(useless_user_line)
+    file.close()
 
-def delect_the_same(filea,fileb,x = 0)
+def delect_the_same(file,save,x = 0)
     user = []
     user_line = []
-    u = codecs.open(fileb, 'a', 'utf8');
-    with open(filea) as f:
+    u = codecs.open(save, 'a', 'utf8');
+    with open(file) as f:
         for line in f:
             split = line.split(' ')
             if split[x] not in user:
