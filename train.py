@@ -47,7 +47,6 @@ def find_only_useless_user():
 
 def fine_once_useless_user():
     u = codecs.open('useless_predict_once.txt', 'a', 'utf8');
-    i = 1
     useless_user = [];
     useless_user_line = []
     with open('/home/koko/Documents/MLcourse/WeiboData/useless_user.txt') as f:
@@ -58,4 +57,16 @@ def fine_once_useless_user():
                 u.write(split[0] + '\n');
     print len(useless_user)
 
-fine_once_useless_user()
+def delect_the_same(filea,fileb,x)
+    user = []
+    user_line = []
+    with open(filea) as f:
+        for line in f:
+            split = line.split(' ')
+            if split[x] not in user:
+            user.append(split[x])
+            fileb.write(split[x]+'\n')
+    print len(user)
+    return user
+
+
